@@ -9,10 +9,9 @@ class RottenCucumbersApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Rotten Cucumbers',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
+      theme: ThemeData(primarySwatch: Colors.green),
       home: MovieHomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -22,25 +21,29 @@ class MovieHomePage extends StatelessWidget {
     Movie(
       title: 'Интерстеллар',
       rating: 85,
-      imageUrl: 'https://avatars.mds.yandex.net/get-kinopoisk-image/1600647/430042eb-ee69-4818-aed0-a312400a26bf/600x900',
+      imageUrl:
+          'https://avatars.mds.yandex.net/get-kinopoisk-image/1600647/430042eb-ee69-4818-aed0-a312400a26bf/600x900',
       reviews: 234,
     ),
     Movie(
       title: 'Начало',
       rating: 74,
-      imageUrl: 'https://avatars.mds.yandex.net/get-kinopoisk-image/1629390/8ab9a119-dd74-44f0-baec-0629797483d7/600x900',
+      imageUrl:
+          'https://avatars.mds.yandex.net/get-kinopoisk-image/1629390/8ab9a119-dd74-44f0-baec-0629797483d7/600x900',
       reviews: 189,
     ),
     Movie(
       title: 'Матрица',
       rating: 92,
-      imageUrl: 'https://avatars.mds.yandex.net/get-kinopoisk-image/4774061/cf1970bc-3f08-4e0e-a095-2fb57c3aa7c6/220x330',
+      imageUrl:
+          'https://avatars.mds.yandex.net/get-kinopoisk-image/4774061/cf1970bc-3f08-4e0e-a095-2fb57c3aa7c6/220x330',
       reviews: 312,
     ),
     Movie(
       title: 'Белоснежка',
       rating: 39,
-      imageUrl: 'https://avatars.mds.yandex.net/get-kinopoisk-image/4716873/0b7ed711-c519-4c65-9a0b-0dd8cf86d88f/220x330',
+      imageUrl:
+          'https://avatars.mds.yandex.net/get-kinopoisk-image/4716873/0b7ed711-c519-4c65-9a0b-0dd8cf86d88f/220x330',
       reviews: 279,
     ),
   ];
@@ -48,38 +51,7 @@ class MovieHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            CircleAvatar(
-              radius: 20,
-              backgroundColor: Colors.white,
-              child: Text(
-                '🥒',
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
-            Text(
-              'Rotten Cucumbers',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-            CircleAvatar(
-              radius: 20,
-              backgroundColor: Colors.white,
-              child: Text(
-                '👤',
-                style: TextStyle(fontSize: 16),
-              ),
-            ),
-          ],
-        ),
-        backgroundColor: Colors.green[700],
-      ),
+      appBar: CustomAppBar(titleText: 'Another Page', backgroundColor: Colors.purple),
       body: Column(
         children: [
           Container(
@@ -125,13 +97,7 @@ class MovieHomePage extends StatelessWidget {
             color: Colors.green[800],
           ),
         ),
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 12,
-            color: Colors.green[600],
-          ),
-        ),
+        Text(title, style: TextStyle(fontSize: 12, color: Colors.green[600])),
       ],
     );
   }
@@ -160,12 +126,10 @@ class MovieHomePage extends StatelessWidget {
                 topLeft: Radius.circular(12),
                 bottomLeft: Radius.circular(12),
               ),
-              image: DecorationImage(
-                image: NetworkImage(movie.imageUrl),
-              ),
+              image: DecorationImage(image: NetworkImage(movie.imageUrl)),
             ),
           ),
-          
+
           Expanded(
             child: Padding(
               padding: EdgeInsets.all(12),
@@ -192,10 +156,7 @@ class MovieHomePage extends StatelessWidget {
                   SizedBox(height: 8),
                   Text(
                     'Рецензии: ${movie.reviews}',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.green[600],
-                    ),
+                    style: TextStyle(fontSize: 14, color: Colors.green[600]),
                   ),
                   SizedBox(height: 8),
                   Container(
@@ -289,3 +250,44 @@ class Movie {
     required this.reviews,
   });
 }
+
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String titleText;
+  final Color backgroundColor;
+  
+  CustomAppBar({this.titleText = 'Rotten Tomatoes', this.backgroundColor = Colors.green});
+  
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CircleAvatar(
+              radius: 20,
+              backgroundColor: Colors.white,
+              child: Text('🥒', style: TextStyle(fontSize: 20)),
+            ),
+            Text(
+              'Rotten Cucumbers',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            CircleAvatar(
+              radius: 20,
+              backgroundColor: Colors.white,
+              child: Text('👤', style: TextStyle(fontSize: 16)),
+            ),
+          ],
+        ),
+        backgroundColor: Colors.green[700],
+    );
+  }
+  
+  @override
+  Size get preferredSize => Size.fromHeight(50); 
+}
+  
